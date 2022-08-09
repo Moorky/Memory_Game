@@ -1,6 +1,7 @@
 class Board {
     uniqueCards;
     boardCards;
+    finalBoard;
 
     /**
      * Creates a board instance.
@@ -12,7 +13,11 @@ class Board {
         this.cardCount = cardCount;
         this.copyCount = copyCount;
 
-        this.createBoard();
+        this.createCards();
+        this.createCopies();
+        this.boardCards = this.shuffleCards(this.boardCards);
+
+        return this.createBoard();
     }
 
     /**
@@ -53,15 +58,28 @@ class Board {
     }
 
     /**
-     * Creates a board of cards step by step.
-     * View this method to see the sub-steps.
-     * - Create Cards
-     * - Create Copies
-     * - Shuffle Cards
+     * Uses an algorithm to create a 2D board from all boardCards.
+     *
+     * @returns {Array} 2D array with all cards
      */
     createBoard() {
-        this.createCards();
-        this.createCopies();
-        this.boardCards = this.shuffleCards(this.boardCards);
+        let x = Math.sqrt(this.boardCards.length);
+        let d;
+        if (x % 1 !== 0) {
+            for (let i = Math.round(x); this.boardCards.length % i !== 0; i++) {
+                if (this.boardCards.length % i === 0) {
+                    d = i;
+                }
+            }
+        } else {
+            d = x;
+        }
+        for (let i = 0; i < d; i++) {
+            for (let l = 0; l < this.boardCards.length / d; l++) {
+                this.finalBoard[l][i] = this.boardCards[0];
+                this.boardCards.shift();
+            }
+        }
+        return this.finalBoard;
     }
 }
