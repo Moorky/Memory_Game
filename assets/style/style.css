@@ -31,3 +31,43 @@
     margin: 5%;
     padding: 1%;
 }
+
+.grid {
+    width: 90%;
+    height: 300px;
+    flex-wrap: wrap;
+    margin: 60px auto;
+}
+
+.grid card {
+    margin: 2px;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+}
+
+.grid card.flip {
+    transform: rotateY(180deg);
+}
+
+.popup {
+    background: red;
+    width: 200px;
+    height: 200px;
+    z-index:20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.data {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+    font-size: 23px;
+}
+
+.data span {
+    color: rgb(206, 121, 11);
+    font-size: 30px;
+}

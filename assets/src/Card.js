@@ -28,18 +28,4 @@ class Card {
     getImg() {
         return this.img;
     }
-
-    /**
-     * Flip and show card image.
-     */
-    show() {
-
-    }
-
-    /**
-     * Flip and hide card image.
-     */
-    hide() {
-
-    }
 }

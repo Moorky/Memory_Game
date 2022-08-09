@@ -1,7 +1,6 @@
 class Board {
     uniqueCards;
     boardCards;
-    finalBoard;
 
     /**
      * Creates a board instance.
@@ -16,8 +15,6 @@ class Board {
         this.createCards();
         this.createCopies();
         this.boardCards = this.shuffleCards(this.boardCards);
-
-        return this.createBoard();
     }
 
     /**
@@ -25,8 +22,18 @@ class Board {
      */
     createCards() {
         for (let i = 0; i < this.cardCount; i++) {
-            this.uniqueCards[i] = new Card(i, null);
+            this.uniqueCards[i] = new Card(i, this.createCardImage());
         }
+    }
+
+    /**
+     * Creates a random scaled image by using https://picsum.photos/
+     *
+     * @returns {string} the url to the random image
+     */
+    createCardImage() {
+        let r = (Math.random() + 1).toString(36).substring(7);
+        return "https://picsum.photos/seed/" + r + "/100/150";
     }
 
     /**
@@ -58,28 +65,33 @@ class Board {
     }
 
     /**
-     * Uses an algorithm to create a 2D board from all boardCards.
+     * Uses an algorithm to define the x value of the 2D board.
      *
-     * @returns {Array} 2D array with all cards
+     * @returns {int} x dimension
      */
-    createBoard() {
+    getBoardDimensionX() {
         let x = Math.sqrt(this.boardCards.length);
-        let d;
         if (x % 1 !== 0) {
             for (let i = Math.round(x); this.boardCards.length % i !== 0; i++) {
                 if (this.boardCards.length % i === 0) {
-                    d = i;
+                    return i;
                 }
             }
-        } else {
-            d = x;
         }
-        for (let i = 0; i < d; i++) {
-            for (let l = 0; l < this.boardCards.length / d; l++) {
-                this.finalBoard[l][i] = this.boardCards[0];
-                this.boardCards.shift();
-            }
-        }
-        return this.finalBoard;
+        return x;
+    }
+
+    /**
+     * @returns {Number} copyCount. How often the same card exists.
+     */
+    getCopyCount() {
+        return this.copyCount;
+    }
+
+    /**
+     * @returns {Array} Array of Cards.
+     */
+    getBoardCards() {
+        return this.boardCards;
     }
 }
