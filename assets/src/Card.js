@@ -3,8 +3,8 @@ class Card {
     /**
      * Creates a card instance.
      *
-     * @param id number that matches with others card(s), which build a pair
-     * @param img image that will be shown once card is selected, has to be the same for each ID
+     * @param {int} id number that matches with others card(s), which build a pair
+     * @param {object} img image that will be shown once card is selected, has to be the same for each ID
      */
     constructor(id, img) {
         this.id = id;
@@ -12,32 +12,32 @@ class Card {
     }
 
     /**
-     * Getter for ID
+     * Getter for ID.
      *
-     * @returns {*}
+     * @returns {int}
      */
     getID() {
         return this.id;
     }
 
     /**
-     * Getter for IMG
+     * Getter for IMG.
      *
-     * @returns {*}
+     * @returns {object}
      */
     getImg() {
         return this.img;
     }
 
     /**
-     * Flip and show card image
+     * Flip and show card image.
      */
     show() {
 
     }
 
     /**
-     * Flip and hide card image
+     * Flip and hide card image.
      */
     hide() {
 
