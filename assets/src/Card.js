@@ -29,3 +29,5 @@ class Card {
         return this.img;
     }
 }
+
+export default Card;

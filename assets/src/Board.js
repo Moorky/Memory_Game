@@ -1,6 +1,6 @@
+import Card from './Card.js'
+
 class Board {
-    uniqueCards;
-    boardCards;
 
     /**
      * Creates a board instance.
@@ -11,6 +11,8 @@ class Board {
     constructor(cardCount, copyCount) {
         this.cardCount = cardCount;
         this.copyCount = copyCount;
+        this.uniqueCards = [];
+        this.boardCards = [];
 
         this.createCards();
         this.createCopies();
@@ -22,7 +24,7 @@ class Board {
      */
     createCards() {
         for (let i = 0; i < this.cardCount; i++) {
-            this.uniqueCards[i] = new Card(i, this.createCardImage());
+            this.uniqueCards.push(new Card(i, this.createCardImage()));
         }
     }
 
@@ -95,3 +97,5 @@ class Board {
         return this.boardCards;
     }
 }
+
+export default Board;
