@@ -1,5 +1,8 @@
 import Card from './Card.js'
 
+/**
+ * Board made up of multiple cards (at least 4) with a bit of functionality
+ */
 class Board {
 
     /**
@@ -74,13 +77,17 @@ class Board {
     getBoardDimensionX() {
         let x = Math.sqrt(this.boardCards.length);
         if (x % 1 !== 0) {
-            for (let i = Math.round(x); this.boardCards.length % i !== 0; i++) {
+            let i = Math.ceil(x);
+
+            do {
                 if (this.boardCards.length % i === 0) {
                     return i;
                 }
-            }
+            } while (this.boardCards.length % i-- !== 0);
+
+        } else {
+            return x;
         }
-        return x;
     }
 
     /**

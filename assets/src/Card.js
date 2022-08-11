@@ -1,3 +1,6 @@
+/**
+ * Just a simple card.
+ */
 class Card {
 
     /**

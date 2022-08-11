@@ -1,80 +1,114 @@
 import Board from './Board.js'
 
+/**
+ * Main Controller (handles board and cards with game logic)
+ */
 class Game {
-    classList;
-    board;
 
-    constructor(cardCount, copyCount) {
+    /**
+     * Creates a game instance.
+     *
+     * @param {int} cardCount how many unique cards there should be (min 2)
+     * @param {int} copyCount how many copies of each unique card (min 2)
+     * @param {string} mode which game mode should be played (solo, pvp, pvc)
+     */
+    constructor(cardCount, copyCount, mode) {
+        // INITS
         this.board = new Board(cardCount, copyCount);
-
         this.grid = document.querySelector(".grid")
         this.popup = document.querySelector(".popup");
         this.cardsID = [];
         this.cardsSelected = [];
         this.cardsWon = 0;
+        this.mode = mode;
 
-        this.popup.style.display = "none";
+        // CLEAN UP
+        this.grid.innerHTML = "";
 
-        let card = document.createElement("img");
-        card.setAttribute("src", "assets/img/background.jpg");
-        this.grid.appendChild(card);
-
+        // GAME LOGIC
         this.startGame();
     }
 
+    /**
+     * Creates a board with the Board class and adds front-end functionality to each card on the board.
+     */
     startGame() {
         this.createBoard(this.grid, this.board.getBoardCards());
 
-        this.cards = document.querySelectorAll("img");
-        Array.from(this.cards).forEach(function callback(card, index) {
-            card.addEventListener("click", this.flipCard.bind(this))
-            card.index = index;
-        }.bind(this));
+        this.grid.addEventListener("click", (e) => { this.flipCard(e) });
     }
 
-    createBoard(grid, array) {
+    /**
+     * Creates board, gives each card an image and an ID in front-end.
+     */
+    createBoard() {
+        let dimCounter = 0;
+
         this.popup.style.display = "none";
-        array.forEach((arr, index) => {
+        this.board.getBoardCards().forEach((arr, index) => {
             let card = document.createElement("img");
             card.setAttribute("src", "assets/img/background.jpg");
+            card.setAttribute("draggable", "false");
             card.setAttribute("data-id", index.toString());
-            grid.appendChild(card);
+            this.grid.appendChild(card);
+
+            // Checks the dimension on the x-axis and causes a break in line when conditions are met
+            if (this.board.getBoardDimensionX() === ++dimCounter) {
+                dimCounter = 0;
+                this.grid.appendChild(document.createElement("br"));
+            }
         })
     }
 
-    flipCard(evt) {
-        let selected = evt.currentTarget.index;
+    /**
+     * onclick functionality of each card.
+     *
+     * @param e is the event variable, in this case it's a single card from the card array
+     */
+    flipCard(e) {
+        if (e.composedPath()[0].classList.contains("flip")) {
+            return;
+        }
+        let selected = e.composedPath()[0].dataset.id;
         this.cardsSelected.push(this.board.getBoardCards()[selected].getID());
         this.cardsID.push(selected);
-        evt.currentTarget.classList.add("flip");
-        evt.currentTarget.setAttribute("src", this.board.getBoardCards()[selected].getImg());
+        e.composedPath()[0].classList.add("flip");
+        e.composedPath()[0].setAttribute("src", this.board.getBoardCards()[selected].getImg());
 
         if (this.cardsID.length === this.board.getCopyCount()) {
             setTimeout(this.checkForMatch.bind(this), 500);
         }
     }
 
+    /**
+     * Checks if selected cards (cardsSelected[]) are matching by comparing their IDs.
+     */
     checkForMatch() {
         let cards = document.querySelectorAll("img");
-        let firstCard = this.cardsID[0];
-        let secondCard = this.cardsID[1];
-        if (this.cardsSelected[0] === this.cardsSelected[1] && firstCard !== secondCard) {
+        let matchCount = 0;
+        for (let i = 1; i < this.cardsID.length; i++) {
+            if (this.cardsSelected[i-1] === this.cardsSelected[i] && this.cardsID[i-1] !== this.cardsID[i]) {
+                matchCount++;
+            }
+        }
+        if (matchCount === this.cardsID.length - 1) {
             this.cardsWon += 1;
             setTimeout(this.checkWon.bind(this), 500)
         } else {
-            cards[firstCard].setAttribute("src", "assets/img/background.jpg");
-            cards[secondCard].setAttribute("src", "assets/img/background.jpg");
-            cards[firstCard].classList.remove("flip");
-            cards[secondCard].classList.remove("flip");
+            for (let i = 0; i < this.cardsID.length; i++) {
+                cards[this.cardsID[i]].setAttribute("src", "assets/img/background.jpg");
+                cards[this.cardsID[i]].classList.remove("flip");
+            }
         }
         this.cardsSelected = [];
         this.cardsID = [];
-        this.clicks += 1;
     }
 
+    /**
+     * Checks if game is won by comparing the cards won to the amount of total cards divided by copy count.
+     */
     checkWon() {
         if (this.cardsWon === this.board.getBoardCards().length / this.board.getCopyCount()) {
-            alert("You won")
             setTimeout(() => this.popup.style.display = "flex", 300);
         }
     }

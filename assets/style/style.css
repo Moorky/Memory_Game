@@ -12,12 +12,24 @@
     /* Standard */
 }
 
+body {
+    background-color: rgb(67, 227, 255);
+    background-image: url("../img/background.jpg");
+    background-position: center;
+}
+
 .center-screen {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     min-height: 100vh;
+}
+
+.topright-screen {
+    position: fixed;
+    top: 3em;
+    right: 18em;
 }
 
 .mainFrame {
@@ -32,8 +44,14 @@
     padding: 1%;
 }
 
+.input {
+    width: 100%;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    text-align: center;
+}
+
 .grid {
-    width: 90%;
+    width: 100%;
     flex-wrap: wrap;
     margin: 60px auto;
 }
@@ -43,7 +61,7 @@
     transform-style: preserve-3d;
     transition: transform 0.5s;
     width: 100px;
-    height: 100px;
+    height: 150px;
 }
 
 .grid img.flip {
