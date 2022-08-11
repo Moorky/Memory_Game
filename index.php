@@ -3,6 +3,7 @@ session_start();
 include 'assets/src/connectDB.php';
 include 'assets/src/signup.php';
 include 'assets/src/login.php';
+include 'assets/src/scoreboard.php';
 ?>
 
 <!DOCTYPE html>
@@ -151,6 +152,24 @@ include 'assets/src/login.php';
     </div>
 </div>
 
+<!-- TOP LEFT BOX (SCOREBOARD) -->
+<div class="topleft-screen">
+    <div class="mainFrame">
+
+        <!-- TITLE -->
+        <h1 class="fancyText1" style="font-size: 34px">SCOREBOARD</h1>
+
+        <!-- DATABASE ENTRIES -->
+        <div class="fancyText1">
+            <?php
+            // GETTING SCORES FROM DATABASE IN scoreboard.php
+            getScoresFromDB();
+            ?>
+        </div>
+    </div>
+</div>
+
+<!-- JAVASCRIPT -->
 <script src="./assets/src/initGame.js" type="module"></script>
 
 </body>

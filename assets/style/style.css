@@ -82,6 +82,12 @@ h1 {
     right: 18em;
 }
 
+.topleft-screen {
+    position: fixed;
+    top: 3em;
+    left: 5em;
+}
+
 .mainFrame {
     border: 3px solid rgb(0, 102, 116);
     border-radius: 5px;
