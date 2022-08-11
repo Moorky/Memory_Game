@@ -1,3 +1,10 @@
+<?php
+session_start();
+include 'assets/src/connectDB.php';
+include 'assets/src/signup.php';
+include 'assets/src/login.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +16,11 @@
     <link rel="stylesheet" href="assets/style/style.css">
 
     <title>Memory</title>
+
+    <?php
+    // Connect to Database
+    connectDB();
+    ?>
 </head>
 
 <body>
@@ -16,16 +28,73 @@
 <!-- TOP RIGHT BOX (LOGIN) -->
 <div class="topright-screen">
     <div class="mainFrame">
+        <!-- SIGNUP AND LOGIN -->
+        <div class="fancyText1">
+            <?php
+
+            // SIGNUP
+            if (isset($_POST['signup'])) {
+                signup();
+            }
+
+            // LOGIN
+            if (isset($_POST['login'])) {
+                login();
+            }
+
+            // LOGOUT
+            if (isset($_POST['logout'])) {
+                session_start();
+                $_SESSION = array();
+                session_destroy();
+            }
+
+            // TOGGLE LOGIN BOX
+            //
+            // SIGNUP & LOGIN BOX
+            if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false) {
+                ?>
+                <style>
+                    #logged {
+                        display: none;
+                    }
+
+                    #login {
+                        display: block;
+                    }
+                </style>
+                <?php
+            }
+            //
+            // LOGGED IN BOX
+            if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+                ?>
+                <style>
+                    #login {
+                        display: none;
+                    }
+
+                    #logged {
+                        display: block;
+                    }
+                </style>
+                <?php
+            }
+            //
+
+            ?>
+        </div>
+
         <form action="" method="POST">
 
             <!-- Content when not logged in -->
             <div id="login">
                 <!-- INPUT FIELD -->
-                <form>
+                <label>
                     <input type="text" name="username" placeholder="Username" class="input" style="margin-bottom: 10px"><br>
                     <input type="password" name="password" placeholder="Password" class="input"
                            style="margin-bottom: 10px"><br>
-                </form>
+                </label>
 
                 <!-- SUBMIT BUTTON -->
                 <button type="submit" name="signup" class="button" style="width: 50%; float: left">Signup</button>

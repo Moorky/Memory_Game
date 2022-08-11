@@ -4,6 +4,8 @@ import Board from './Board.js'
  * Main Controller (handles board and cards with game logic)
  */
 class Game {
+    // Event variable for event handling
+    evt;
 
     /**
      * Creates a game instance.
@@ -35,7 +37,21 @@ class Game {
     startGame() {
         this.createBoard(this.grid, this.board.getBoardCards());
 
-        this.grid.addEventListener("click", (e) => { this.flipCard(e) });
+        this.enableCard();
+    }
+
+    /**
+     * Creates event listener for whenever a card is selected/clicked
+     */
+    enableCard() {
+        this.grid.addEventListener("click", this.evt = (e) => { this.flipCard(e) });
+    }
+
+    /**
+     * Removes event listener for whenever cards should not be selected/clicked
+     */
+    disableCard() {
+        this.grid.removeEventListener("click", this.evt);
     }
 
     /**
@@ -76,7 +92,8 @@ class Game {
         e.composedPath()[0].setAttribute("src", this.board.getBoardCards()[selected].getImg());
 
         if (this.cardsID.length === this.board.getCopyCount()) {
-            setTimeout(this.checkForMatch.bind(this), 500);
+            this.disableCard();
+            setTimeout(this.checkForMatch.bind(this), 800);
         }
     }
 
@@ -102,6 +119,7 @@ class Game {
         }
         this.cardsSelected = [];
         this.cardsID = [];
+        this.enableCard();
     }
 
     /**

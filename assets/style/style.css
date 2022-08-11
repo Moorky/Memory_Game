@@ -18,6 +18,56 @@ body {
     background-position: center;
 }
 
+button {
+    outline: none;
+    cursor: pointer;
+    font-weight: 900;
+    border-radius: 3px;
+    padding: 12px 24px;
+    border: 1.5px solid rgb(56, 34, 155);
+    color: #fff;
+    background: #000a47;
+    line-height: 1.15;
+    font-size: 16px;
+    text-align: center;
+}
+
+button:hover {
+    transition: all .1s ease;
+    box-shadow: 0 0 0 0 #fff, 0 0 0 3px #1dcae9;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+.fancyText1 {
+    font-family: "Dank Mono", ui-monospace, monospace;
+    background: linear-gradient(to right,
+    rgb(45, 223, 255),
+    rgb(173, 49, 255));
+    background-clip: border-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    font-size: 20px;
+}
+
+.fancyText2 {
+    font-family: "Dank Mono", ui-monospace, monospace;
+    background: linear-gradient(to right,
+    rgb(7, 253, 241),
+    rgb(0, 255, 170));
+    background-clip: border-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 800;
+    float: right;
+    padding-top: 15px;
+}
+
 .center-screen {
     display: flex;
     justify-content: center;
@@ -39,7 +89,7 @@ body {
     outline-color: rgb(0, 141, 160);
     display: inline-block;
     position: absolute;
-    background-color: #ffffff;
+    background-color: #001235;
     margin: 5%;
     padding: 1%;
 }
