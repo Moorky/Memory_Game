@@ -1,9 +1,9 @@
 <?php
 session_start();
-include 'assets/src/connectDB.php';
-include 'assets/src/signup.php';
-include 'assets/src/login.php';
-include 'assets/src/scoreboard.php';
+include 'assets/src/php/connectDB.php';
+include 'assets/src/php/signup.php';
+include 'assets/src/php/login.php';
+include 'assets/src/php/scoreboard.php';
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ include 'assets/src/scoreboard.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="assets/style/style.css">
+    <link rel="stylesheet" href="assets/src/css/style.css">
 
     <title>Memory</title>
 
@@ -171,7 +171,7 @@ include 'assets/src/scoreboard.php';
 </div>
 
 <!-- JAVASCRIPT -->
-<script src="./assets/src/initGame.js" type="module"></script>
+<script src="assets/src/js/initGame.js" type="module"></script>
 
 </body>
 
