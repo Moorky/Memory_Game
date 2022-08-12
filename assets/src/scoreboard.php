@@ -2,7 +2,7 @@
 
 function getScoresFromDB () {
     // Get Userdata
-    $sql = "SELECT Username, Score FROM UserData WHERE Score IS NOT NULL ORDER BY Score ASC";
+    $sql = "SELECT Username, Score FROM UserData WHERE Score IS NOT NULL ORDER BY Score DESC";
     $result = $_SESSION['conn']->query($sql);
 
     if ($result->num_rows > 0) {

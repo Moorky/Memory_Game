@@ -1,6 +1,8 @@
 import Game from './Game.js'
 
-let cardCount, copyCount, mode;
+let cardCount, copyCount;
+let mode;
+let player1, player2;
 
 /**
  * Creates an instance of the Memory game.
@@ -13,7 +15,8 @@ window.onload = function () {
         getData();
 
         if (checkInput()) {
-            return new Game(Number(cardCount), Number(copyCount), String(mode));
+            new Game(Number(cardCount), Number(copyCount), String(mode), String(player1), String(player2));
+            return;
         }
         return alert("Invalid input!");
     });
@@ -34,4 +37,6 @@ function getData() {
     cardCount = document.getElementById("cardCount").value;
     copyCount = document.getElementById("copyCount").value;
     mode = document.getElementById("mode").value;
+    player1 = document.getElementById("player1").value;
+    player2 = document.getElementById("player2").value;
 }

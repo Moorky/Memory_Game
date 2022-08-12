@@ -27,7 +27,7 @@ class Board {
      */
     createCards() {
         for (let i = 0; i < this.cardCount; i++) {
-            this.uniqueCards.push(new Card(i, this.createCardImage()));
+            this.uniqueCards.push(new Card(i, new Image().src = (this.createCardImage())));
         }
     }
 

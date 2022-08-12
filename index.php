@@ -28,7 +28,7 @@ include 'assets/src/scoreboard.php';
 
 <!-- TOP RIGHT BOX (LOGIN) -->
 <div class="topright-screen">
-    <div class="mainFrame">
+    <div class="mainFrame" style="min-width: 200px">
         <!-- SIGNUP AND LOGIN -->
         <div class="fancyText1">
             <?php
@@ -93,8 +93,7 @@ include 'assets/src/scoreboard.php';
                 <!-- INPUT FIELD -->
                 <label>
                     <input type="text" name="username" placeholder="Username" class="input" style="margin-bottom: 10px"><br>
-                    <input type="password" name="password" placeholder="Password" class="input"
-                           style="margin-bottom: 10px"><br>
+                    <input type="password" name="password" placeholder="Password" class="input" style="margin-bottom: 10px"><br>
                 </label>
 
                 <!-- SUBMIT BUTTON -->
@@ -127,13 +126,15 @@ include 'assets/src/scoreboard.php';
             <label>
 
                 <select id="mode">
-                    <option value="solo">Solo</option>
                     <option value="pvp">PvP</option>
                     <option value="pvc">PvC</option>
                 </select>
 
                 <input type="text" id="cardCount" placeholder="Amount of cards" class="input">
                 <input type="text" id="copyCount" placeholder="Amount of copies" class="input">
+
+                <input type="text" id="player1" placeholder="Player 1" class="input">
+                <input type="text" id="player2" placeholder="Player 2" class="input">
 
             </label>
 
@@ -142,7 +143,8 @@ include 'assets/src/scoreboard.php';
 
         <!-- DATA -->
         <div class="data">
-
+            <div class="fancyText2"><span class="scoreBoard_1"></span></div>
+            <div class="fancyText2"><span class="scoreBoard_2"></span></div>
         </div>
 
         <!-- CARD BOARD -->

@@ -4,8 +4,8 @@ import Board from './Board.js'
  * Main Controller (handles board and cards with game logic)
  */
 class Game {
-    // Event variable for event handling
-    evt;
+    // Event variable for event handling (only use as a pointer for event listeners!)
+    gameEventPointer;
 
     /**
      * Creates a game instance.
@@ -13,19 +13,26 @@ class Game {
      * @param {int} cardCount how many unique cards there should be (min 2)
      * @param {int} copyCount how many copies of each unique card (min 2)
      * @param {string} mode which game mode should be played (solo, pvp, pvc)
+     * @param {string} player1 username of player 1
+     * @param {string} player2 username of player 2
      */
-    constructor(cardCount, copyCount, mode) {
+    constructor(cardCount, copyCount, mode, player1, player2) {
         // INITS
         this.board = new Board(cardCount, copyCount);
         this.grid = document.querySelector(".grid")
         this.popup = document.querySelector(".popup");
+        this.scoreBoard = [document.querySelector(".scoreBoard_1"), document.querySelector(".scoreBoard_2")];
         this.cardsID = [];
         this.cardsSelected = [];
         this.cardsWon = 0;
+        this.player = [player1, player2];
+        this.score = [0, 0];
+        this.turn = 0;
         this.mode = mode;
 
         // CLEAN UP
         this.grid.innerHTML = "";
+        this.scoreBoard.forEach((e, i) => { e.innerHTML =  this.player[i] + ": " + (this.score[i]).toString()})
 
         // GAME LOGIC
         this.startGame();
@@ -36,22 +43,7 @@ class Game {
      */
     startGame() {
         this.createBoard(this.grid, this.board.getBoardCards());
-
         this.enableCard();
-    }
-
-    /**
-     * Creates event listener for whenever a card is selected/clicked
-     */
-    enableCard() {
-        this.grid.addEventListener("click", this.evt = (e) => { this.flipCard(e) });
-    }
-
-    /**
-     * Removes event listener for whenever cards should not be selected/clicked
-     */
-    disableCard() {
-        this.grid.removeEventListener("click", this.evt);
     }
 
     /**
@@ -77,6 +69,22 @@ class Game {
     }
 
     /**
+     * Creates event listener for whenever a card is selected/clicked
+     */
+    enableCard() {
+        this.grid.addEventListener("click", this.gameEventPointer = (e) => {
+            this.flipCard(e)
+        });
+    }
+
+    /**
+     * Removes event listener for whenever cards should not be selected/clicked
+     */
+    disableCard() {
+        this.grid.removeEventListener("click", this.gameEventPointer);
+    }
+
+    /**
      * onclick functionality of each card.
      *
      * @param e is the event variable, in this case it's a single card from the card array
@@ -93,7 +101,7 @@ class Game {
 
         if (this.cardsID.length === this.board.getCopyCount()) {
             this.disableCard();
-            setTimeout(this.checkForMatch.bind(this), 800);
+            setTimeout(this.checkForMatch.bind(this), 500);
         }
     }
 
@@ -101,24 +109,23 @@ class Game {
      * Checks if selected cards (cardsSelected[]) are matching by comparing their IDs.
      */
     checkForMatch() {
-        let cards = document.querySelectorAll("img");
         let matchCount = 0;
         for (let i = 1; i < this.cardsID.length; i++) {
-            if (this.cardsSelected[i-1] === this.cardsSelected[i] && this.cardsID[i-1] !== this.cardsID[i]) {
+            if (this.cardsSelected[i - 1] === this.cardsSelected[i] && this.cardsID[i - 1] !== this.cardsID[i]) {
                 matchCount++;
             }
         }
+
         if (matchCount === this.cardsID.length - 1) {
             this.cardsWon += 1;
+            this.increaseScore();
             setTimeout(this.checkWon.bind(this), 500)
         } else {
-            for (let i = 0; i < this.cardsID.length; i++) {
-                cards[this.cardsID[i]].setAttribute("src", "assets/img/background.jpg");
-                cards[this.cardsID[i]].classList.remove("flip");
-            }
+            this.switchTurn();
+            this.unselectSelectedCards();
         }
-        this.cardsSelected = [];
-        this.cardsID = [];
+
+        this.clearSelection();
         this.enableCard();
     }
 
@@ -128,6 +135,41 @@ class Game {
     checkWon() {
         if (this.cardsWon === this.board.getBoardCards().length / this.board.getCopyCount()) {
             setTimeout(() => this.popup.style.display = "flex", 300);
+            this.disableCard();
+            delete this;
+        }
+    }
+
+    /**
+     * Calculates score after finding a match.
+     */
+    increaseScore() {
+        this.scoreBoard[this.turn].innerHTML = this.player[this.turn] + ": " + (++this.score[this.turn]).toString();
+    }
+
+    /**
+     * Switches turn value between 0 and 1 everytime the method is called.
+     */
+    switchTurn() {
+        this.turn = this.turn === 0 ? 1 : 0
+    }
+
+    /**
+     * Clears card selection after a turn
+     */
+    clearSelection() {
+        this.cardsSelected = [];
+        this.cardsID = [];
+    }
+
+    /**
+     * Turns all selected cards back, if they're not matching.
+     */
+    unselectSelectedCards() {
+        let cards = document.querySelectorAll("img");
+        for (let i = 0; i < this.cardsID.length; i++) {
+            cards[this.cardsID[i]].setAttribute("src", "assets/img/background.jpg");
+            cards[this.cardsID[i]].classList.remove("flip");
         }
     }
 }
