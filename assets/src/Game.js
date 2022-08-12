@@ -1,4 +1,5 @@
-import Board from './Board.js'
+import Board from './Board.js';
+import Player from './Player.js';
 
 /**
  * Main Controller (handles board and cards with game logic)
@@ -19,6 +20,7 @@ class Game {
     constructor(cardCount, copyCount, mode, player1, player2) {
         // INITS
         this.board = new Board(cardCount, copyCount);
+        this.player = new Player();
         this.grid = document.querySelector(".grid")
         this.popup = document.querySelector(".popup");
         this.scoreBoard = [document.querySelector(".scoreBoard_1"), document.querySelector(".scoreBoard_2")];
@@ -32,7 +34,9 @@ class Game {
 
         // CLEAN UP
         this.grid.innerHTML = "";
-        this.scoreBoard.forEach((e, i) => { e.innerHTML =  this.player[i] + ": " + (this.score[i]).toString()})
+        this.scoreBoard.forEach((e, i) => {
+            e.innerHTML = this.player[i] + ": " + (this.score[i]).toString()
+        })
 
         // GAME LOGIC
         this.startGame();
@@ -51,21 +55,48 @@ class Game {
      */
     createBoard() {
         let dimCounter = 0;
-
         this.popup.style.display = "none";
-        this.board.getBoardCards().forEach((arr, index) => {
-            let card = document.createElement("img");
-            card.setAttribute("src", "assets/img/background.jpg");
-            card.setAttribute("draggable", "false");
-            card.setAttribute("data-id", index.toString());
-            this.grid.appendChild(card);
 
-            // Checks the dimension on the x-axis and causes a break in line when conditions are met
-            if (this.board.getBoardDimensionX() === ++dimCounter) {
-                dimCounter = 0;
-                this.grid.appendChild(document.createElement("br"));
-            }
+        this.board.getBoardCards().forEach((arr, index) => {
+            dimCounter = this.createBoardCardsElements(dimCounter, index);
         })
+    }
+
+    /**
+     * Creates all elements necessary to show the cards in the browser (div, img, etc.).
+     *
+     * @param dimCounter counter on the x-axis dimension, handling line breaks in the browser
+     * @param index which element from the Board class should be handled
+     * @returns {number} dimCounter which should be declared as 0 in the parent method for best nested handling
+     */
+    createBoardCardsElements(dimCounter, index) {
+        let divWrap = document.createElement("div");
+        let div = document.createElement("div");
+        let frontDiv = document.createElement("div");
+        let backDiv = document.createElement("div");
+        let card = document.createElement("img");
+
+        divWrap.classList.add("flip-card")
+        div.classList.add("flip-card-inner");
+        frontDiv.classList.add("flip-card-front");
+        backDiv.classList.add("flip-card-back");
+
+        card.setAttribute("src", "assets/img/background.jpg");
+        card.setAttribute("draggable", "false");
+        card.setAttribute("data-id", index.toString());
+
+        frontDiv.appendChild(card);
+        div.appendChild(frontDiv);
+        div.appendChild(backDiv);
+        divWrap.appendChild(div);
+        this.grid.appendChild(divWrap);
+
+        // Checks the dimension on the x-axis and causes a break in line when conditions are met
+        if (this.board.getBoardDimensionX() === ++dimCounter) {
+            dimCounter = 0;
+            this.grid.appendChild(document.createElement("br"));
+        }
+        return dimCounter;
     }
 
     /**
@@ -85,24 +116,43 @@ class Game {
     }
 
     /**
-     * onclick functionality of each card.
+     * Onclick functionality of each card.
      *
      * @param e is the event variable, in this case it's a single card from the card array
      */
     flipCard(e) {
-        if (e.composedPath()[0].classList.contains("flip")) {
+        if (e.composedPath()[3].classList.contains("flip-card-rotate")) {
             return;
         }
+        console.log(e);
         let selected = e.composedPath()[0].dataset.id;
         this.cardsSelected.push(this.board.getBoardCards()[selected].getID());
         this.cardsID.push(selected);
-        e.composedPath()[0].classList.add("flip");
-        e.composedPath()[0].setAttribute("src", this.board.getBoardCards()[selected].getImg());
+
+        this.getCardBackImage(e, selected);
 
         if (this.cardsID.length === this.board.getCopyCount()) {
             this.disableCard();
             setTimeout(this.checkForMatch.bind(this), 500);
         }
+    }
+
+    /**
+     * Creates the image and element of the back of the card, as soon as the card has been selected.
+     *
+     * @param e event variable PointerEvent
+     * @param selected is the selected card ID
+     */
+    getCardBackImage(e, selected) {
+        let card = document.createElement("img");
+
+        card.setAttribute("src", this.board.getBoardCards()[selected].getImg());
+        card.setAttribute("draggable", "false");
+        card.setAttribute("data-id", e.composedPath()[0].dataset.id);
+
+        e.composedPath()[3].classList.add("flip-card-rotate");
+
+        e.composedPath()[2].lastChild.appendChild(card);
     }
 
     /**
@@ -151,7 +201,7 @@ class Game {
      * Switches turn value between 0 and 1 everytime the method is called.
      */
     switchTurn() {
-        this.turn = this.turn === 0 ? 1 : 0
+        this.turn = this.turn === 0 ? 1 : 0;
     }
 
     /**
@@ -166,10 +216,10 @@ class Game {
      * Turns all selected cards back, if they're not matching.
      */
     unselectSelectedCards() {
-        let cards = document.querySelectorAll("img");
+        let cards = document.querySelectorAll(".flip-card");
         for (let i = 0; i < this.cardsID.length; i++) {
-            cards[this.cardsID[i]].setAttribute("src", "assets/img/background.jpg");
-            cards[this.cardsID[i]].classList.remove("flip");
+            cards[this.cardsID[i]].classList.remove("flip-card-rotate");
+            cards[this.cardsID[i]].firstChild.lastChild.firstChild.remove();
         }
     }
 }
