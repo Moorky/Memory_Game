@@ -1,5 +1,6 @@
 import Board from './Board.js';
 import Player from './Player.js';
+import ConnectDB from "./ConnectDB.js";
 
 /**
  * Main Controller (handles board and cards with game logic)
@@ -14,20 +15,19 @@ class Game {
      * @param {int} cardCount how many unique cards there should be (min 2)
      * @param {int} copyCount how many copies of each unique card (min 2)
      * @param {string} mode which game mode should be played (solo, pvp, pvc)
-     * @param {string} player1 username of player 1
      * @param {string} player2 username of player 2
      */
-    constructor(cardCount, copyCount, mode, player1, player2) {
+    constructor(cardCount, copyCount, mode, player2) {
         // INITS
+        this.database = new ConnectDB();
         this.board = new Board(cardCount, copyCount);
-        this.player = new Player();
+        this.player = new Player(this.getUserName(), player2);
         this.grid = document.querySelector(".grid")
         this.popup = document.querySelector(".popup");
         this.scoreBoard = [document.querySelector(".scoreBoard_1"), document.querySelector(".scoreBoard_2")];
         this.cardsID = [];
         this.cardsSelected = [];
         this.cardsWon = 0;
-        this.player = [player1, player2];
         this.score = [0, 0];
         this.turn = 0;
         this.mode = mode;
@@ -35,11 +35,20 @@ class Game {
         // CLEAN UP
         this.grid.innerHTML = "";
         this.scoreBoard.forEach((e, i) => {
-            e.innerHTML = this.player[i] + ": " + (this.score[i]).toString()
+            e.innerHTML = this.player.getPlayerName(i) + ": " + (this.player.getPlayerScore(i)).toString()
         })
 
         // GAME LOGIC
         this.startGame();
+    }
+
+    /**
+     * Getter for username from database.
+     *
+     * @returns {string} username
+     */
+    getUserName() {
+        return this.database.getUserName();
     }
 
     /**
@@ -96,6 +105,7 @@ class Game {
             dimCounter = 0;
             this.grid.appendChild(document.createElement("br"));
         }
+
         return dimCounter;
     }
 
@@ -168,7 +178,7 @@ class Game {
 
         if (matchCount === this.cardsID.length - 1) {
             this.cardsWon += 1;
-            this.increaseScore();
+            this.player.increaseScore(this.scoreBoard, this.turn);
             setTimeout(this.checkWon.bind(this), 500)
         } else {
             this.switchTurn();
@@ -188,13 +198,6 @@ class Game {
             this.disableCard();
             delete this;
         }
-    }
-
-    /**
-     * Calculates score after finding a match.
-     */
-    increaseScore() {
-        this.scoreBoard[this.turn].innerHTML = this.player[this.turn] + ": " + (++this.score[this.turn]).toString();
     }
 
     /**

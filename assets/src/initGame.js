@@ -15,7 +15,7 @@ window.onload = function () {
         getData();
 
         if (checkInput()) {
-            new Game(Number(cardCount), Number(copyCount), String(mode), String(player1), String(player2));
+            new Game(Number(cardCount), Number(copyCount), String(mode), String(player2));
             return;
         }
         return alert("Invalid input!");
@@ -37,6 +37,5 @@ function getData() {
     cardCount = document.getElementById("cardCount").value;
     copyCount = document.getElementById("copyCount").value;
     mode = document.getElementById("mode").value;
-    player1 = document.getElementById("player1").value;
     player2 = document.getElementById("player2").value;
 }

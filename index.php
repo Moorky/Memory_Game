@@ -118,7 +118,7 @@ include 'assets/src/scoreboard.php';
 
 <!-- CENTER BOX (GAME) -->
 <div class="center-screen">
-    <div class="mainFrame">
+    <div class="mainFrame" id="logged">
 
 
         <!-- PREGAME INPUT -->
@@ -133,8 +133,7 @@ include 'assets/src/scoreboard.php';
                 <input type="text" id="cardCount" placeholder="Amount of cards" class="input">
                 <input type="text" id="copyCount" placeholder="Amount of copies" class="input">
 
-                <input type="text" id="player1" placeholder="Player 1" class="input">
-                <input type="text" id="player2" placeholder="Player 2" class="input">
+                <input type="text" id="player2" placeholder="Player two name" class="input">
 
             </label>
 
