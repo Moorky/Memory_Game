@@ -42,30 +42,45 @@ h1 {
 }
 
 .fancyText1 {
-    font-family: "Dank Mono", ui-monospace, monospace;
     background: linear-gradient(to right,
     rgb(45, 223, 255),
     rgb(173, 49, 255));
-    background-clip: border-box;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-align: center;
-    font-size: 20px;
 }
 
 .fancyText2 {
-    font-family: "Dank Mono", ui-monospace, monospace;
     background: linear-gradient(to right,
     rgb(7, 253, 241),
-    rgb(0, 255, 170));
+    rgb(80, 181, 255));
+}
+
+.fancyText3 {
+    background: linear-gradient(to right,
+    rgb(218, 34, 246),
+    rgb(173, 49, 255));
+    ;
+}
+
+.playerOneCardBorder {
+    border-color: rgb(7, 253, 241);
+}
+
+.playerTwoCardBorder {
+    border-color: rgb(218, 34, 246);
+}
+
+.playerOneCardBorder, .playerTwoCardBorder {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 3px;
+}
+
+.fancyText1, .fancyText2, .fancyText3 {
+    font-family: "Dank Mono", ui-monospace, monospace;
     background-clip: border-box;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;
     font-size: 20px;
-    font-weight: 800;
-    float: right;
-    padding-top: 15px;
 }
 
 .center-screen {

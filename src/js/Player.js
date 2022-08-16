@@ -32,7 +32,7 @@ class Player {
      * @param turn can either be 0 or 1, depending on which players turn it is
      */
     increaseScore(htmlElement, turn) {
-        htmlElement[turn].innerHTML = this.playerNames[turn] + ": " + (++this.score[turn]).toString();
+        htmlElement[turn].innerHTML = this.playerNames[turn] + " " + (++this.score[turn]).toString();
     }
 
     /**

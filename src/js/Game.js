@@ -34,7 +34,7 @@ class Game {
         // CLEAN UP
         this.grid.innerHTML = "";
         this.scoreBoard.forEach((e, i) => {
-            e.innerHTML = this.player.getPlayerName(i) + ": " + (this.player.getPlayerScore(i)).toString()
+            e.innerHTML = this.player.getPlayerName(i) + " " + (this.player.getPlayerScore(i)).toString()
         })
 
         // GAME LOGIC
@@ -158,6 +158,7 @@ class Game {
         card.setAttribute("src", this.board.getBoardCards()[selected].getImg());
         card.setAttribute("draggable", "false");
         card.setAttribute("data-id", e.composedPath()[0].dataset.id);
+        card.classList.add(this.turn === 0 ? "playerOneCardBorder" : "playerTwoCardBorder");
 
         e.composedPath()[3].classList.add("flip-card-rotate");
 
