@@ -53,7 +53,7 @@ class Game {
      * @returns {string} username
      */
     getUserName() {
-        return this.database.getUserName();
+        return this.database.getData("username");
     }
 
     /**

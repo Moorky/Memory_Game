@@ -17,6 +17,10 @@ class AI {
     makeTurn() {
 
     }
+
+    getBoardCards() {
+
+    }
 }
 
 export default AI;
