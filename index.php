@@ -26,6 +26,57 @@ include 'src/php/scoreboard.php';
 
 <body>
 
+<!-- CENTER BOX (GAME) -->
+<div class="center-screen">
+    <div class="mainFrame" id="login">
+
+        <form action="" method="POST">
+            <!-- Content when not logged in -->
+            <div id="login">
+                <!-- INPUT FIELD -->
+                <label>
+                    <input type="text" name="username" placeholder="Username" class="input" style="margin-bottom: 10px"><br>
+                    <input type="password" name="password" placeholder="Password" class="input"
+                           style="margin-bottom: 10px"><br>
+                </label>
+
+                <!-- SUBMIT BUTTON -->
+                <button type="submit" name="signup" class="button" style="width: 50%; float: left">Signup</button>
+                <button type="submit" name="login" class="button" style="width: 50%; float: right">Login</button>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="mainFrame" id="logged">
+
+
+        <!-- PREGAME INPUT -->
+        <div class="popup">
+            <label>
+
+                <select id="mode">
+                    <option value="pvp">PvP</option>
+                    <option value="pvc">PvC</option>
+                </select>
+
+                <input type="text" id="cardCount" placeholder="Amount of cards" class="input">
+                <input type="text" id="copyCount" placeholder="Amount of copies" class="input">
+
+                <input type="text" id="player2" placeholder="Player two name" class="input">
+
+            </label>
+
+            <button class="play" id="play">Play</button>
+        </div>
+
+        <!-- CARD BOARD -->
+        <div class="grid">
+        </div>
+
+    </div>
+</div>
+
 <!-- TOP RIGHT BOX (LOGIN) -->
 <div class="topright-screen">
     <div class="mainFrame" style="min-width: 200px" id="logged">
@@ -100,57 +151,6 @@ include 'src/php/scoreboard.php';
             </div>
 
         </form>
-    </div>
-</div>
-
-<!-- CENTER BOX (GAME) -->
-<div class="center-screen">
-    <div class="mainFrame" id="login">
-
-        <form action="" method="POST">
-            <!-- Content when not logged in -->
-            <div id="login">
-                <!-- INPUT FIELD -->
-                <label>
-                    <input type="text" name="username" placeholder="Username" class="input" style="margin-bottom: 10px"><br>
-                    <input type="password" name="password" placeholder="Password" class="input"
-                           style="margin-bottom: 10px"><br>
-                </label>
-
-                <!-- SUBMIT BUTTON -->
-                <button type="submit" name="signup" class="button" style="width: 50%; float: left">Signup</button>
-                <button type="submit" name="login" class="button" style="width: 50%; float: right">Login</button>
-            </div>
-        </form>
-
-    </div>
-
-    <div class="mainFrame" id="logged">
-
-
-        <!-- PREGAME INPUT -->
-        <div class="popup">
-            <label>
-
-                <select id="mode">
-                    <option value="pvp">PvP</option>
-                    <option value="pvc">PvC</option>
-                </select>
-
-                <input type="text" id="cardCount" placeholder="Amount of cards" class="input">
-                <input type="text" id="copyCount" placeholder="Amount of copies" class="input">
-
-                <input type="text" id="player2" placeholder="Player two name" class="input">
-
-            </label>
-
-            <button class="play" id="play">Play</button>
-        </div>
-
-        <!-- CARD BOARD -->
-        <div class="grid">
-        </div>
-
     </div>
 </div>
 

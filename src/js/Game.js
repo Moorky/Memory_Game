@@ -1,6 +1,7 @@
 import Board from './Board.js';
 import Player from './Player.js';
 import ConnectDB from "./ConnectDB.js";
+import AI from "./AI.js";
 
 /**
  * Main Controller (handles board and cards with game logic)
@@ -144,7 +145,7 @@ class Game {
 
         if (this.cardsID.length === this.board.getCopyCount()) {
             this.disableCard();
-            setTimeout(this.checkForMatch.bind(this), 500);
+            setTimeout(this.checkForMatch.bind(this), 1000);
         }
     }
 
@@ -205,6 +206,7 @@ class Game {
     /**
      * Switches turn value between 0 and 1 everytime the method is called.
      * Also shows on the Scoreboard, which players turn it is.
+     * Also activates AI, if game mode is PvC.
      */
     switchTurn() {
         this.turn = this.turn === 0 ? 1 : 0;
@@ -212,6 +214,10 @@ class Game {
         this.scoreBoardTurn.innerHTML = "It's " + this.player.getPlayerName(this.turn) + "'s turn!";
         this.scoreBoardTurn.classList.remove(this.turn === 0 ? "fancyText3" : "fancyText2");
         this.scoreBoardTurn.classList.add(this.turn === 0 ? "fancyText2" : "fancyText3");
+
+        if (this.turn === 1 && this.mode === "PvC") {
+
+        }
     }
 
     /**
