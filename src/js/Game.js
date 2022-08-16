@@ -28,7 +28,6 @@ class Game {
         this.cardsID = [];
         this.cardsSelected = [];
         this.cardsWon = 0;
-        this.score = [0, 0];
         this.turn = 0;
         this.mode = mode;
 

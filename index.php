@@ -1,9 +1,9 @@
 <?php
 session_start();
-include 'assets/src/php/connectDB.php';
-include 'assets/src/php/signup.php';
-include 'assets/src/php/login.php';
-include 'assets/src/php/scoreboard.php';
+include 'src/php/connectDB.php';
+include 'src/php/signup.php';
+include 'src/php/login.php';
+include 'src/php/scoreboard.php';
 ?>
 
 <!DOCTYPE html>
