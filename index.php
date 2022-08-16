@@ -147,12 +147,6 @@ include 'src/php/scoreboard.php';
             <button class="play" id="play">Play</button>
         </div>
 
-        <!-- DATA -->
-        <div class="data">
-            <div class="fancyText2"><span class="scoreBoard_1"></span></div>
-            <div class="fancyText2"><span class="scoreBoard_2"></span></div>
-        </div>
-
         <!-- CARD BOARD -->
         <div class="grid">
         </div>
@@ -174,6 +168,19 @@ include 'src/php/scoreboard.php';
             getScoresFromDB();
             ?>
         </div>
+    </div>
+</div>
+
+<!-- TOP CENTER BOX (SCORE) -->
+<div class="topcenter-screen">
+    <div class="mainFrame" id="logged">
+
+        <!-- DATA -->
+        <div class="data">
+            <div class="fancyText2" style="float:left"><span class="scoreBoard_1"></span></div>
+            <div class="fancyText2" style="float:right"><span class="scoreBoard_2"></span></div>
+        </div>
+
     </div>
 </div>
 

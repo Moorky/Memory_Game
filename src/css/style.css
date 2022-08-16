@@ -76,6 +76,16 @@ h1 {
     min-height: 100vh;
 }
 
+.topcenter-screen {
+    position: fixed;
+    top: 5em;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 .topright-screen {
     position: fixed;
     top: 3em;
