@@ -38,4 +38,15 @@ function getData() {
     copyCount = document.getElementById("copyCount").value;
     mode = document.getElementById("mode").value;
     player2 = document.getElementById("player2").value;
+
+    checkIfPvC();
+}
+
+/**
+ * Sets Player2 name to "Carla" if game mode is player vs computer
+ */
+function checkIfPvC() {
+    if (mode === "pvc") {
+        player2 = "Carla";
+    }
 }

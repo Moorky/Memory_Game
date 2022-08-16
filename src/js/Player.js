@@ -30,9 +30,11 @@ class Player {
      *
      * @param htmlElement array, that will change the innerHTML of one element depending on the index/turn
      * @param turn can either be 0 or 1, depending on which players turn it is
+     * @param copiesCount the amount of copies of each unique card on the board
      */
-    increaseScore(htmlElement, turn) {
-        htmlElement[turn].innerHTML = this.playerNames[turn] + " " + (++this.score[turn]).toString();
+    increaseScore(htmlElement, turn, copiesCount) {
+        this.score[turn] += 0.5 * copiesCount;
+        htmlElement[turn].innerHTML = this.playerNames[turn] + " " + (this.score[turn]).toString();
     }
 
     /**

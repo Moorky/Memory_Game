@@ -23,10 +23,13 @@ class Game {
         this.database = new ConnectDB();
         this.board = new Board(cardCount, copyCount);
         this.player = new Player(this.getUserName(), player2);
+        this.ai = new AI(this);
+
         this.grid = document.querySelector(".grid")
         this.popup = document.querySelector(".popup");
         this.scoreBoard = [document.querySelector(".scoreBoard_1"), document.querySelector(".scoreBoard_2")];
         this.scoreBoardTurn = document.querySelector(".scoreBoard_turn");
+
         this.cardsID = [];
         this.cardsSelected = [];
         this.cardsWon = 0;
@@ -181,7 +184,7 @@ class Game {
 
         if (matchCount === this.cardsID.length - 1) {
             this.cardsWon += 1;
-            this.player.increaseScore(this.scoreBoard, this.turn);
+            this.player.increaseScore(this.scoreBoard, this.turn, this.board.getCopyCount());
             setTimeout(this.checkWon.bind(this), 500)
         } else {
             this.switchTurn();
@@ -189,7 +192,12 @@ class Game {
         }
 
         this.clearSelection();
-        this.enableCard();
+
+        if (!(this.mode === "pvc" && this.turn === 1)) {
+            this.enableCard();
+        } else {
+            this.ai.makeTurn();
+        }
     }
 
     /**
@@ -214,10 +222,6 @@ class Game {
         this.scoreBoardTurn.innerHTML = "It's " + this.player.getPlayerName(this.turn) + "'s turn!";
         this.scoreBoardTurn.classList.remove(this.turn === 0 ? "fancyText3" : "fancyText2");
         this.scoreBoardTurn.classList.add(this.turn === 0 ? "fancyText2" : "fancyText3");
-
-        if (this.turn === 1 && this.mode === "PvC") {
-
-        }
     }
 
     /**
