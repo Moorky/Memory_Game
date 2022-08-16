@@ -14,7 +14,7 @@ include 'assets/src/php/scoreboard.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="assets/src/css/style.css">
+    <link rel="stylesheet" href="src/css/style.css">
 
     <title>Memory</title>
 
@@ -28,7 +28,7 @@ include 'assets/src/php/scoreboard.php';
 
 <!-- TOP RIGHT BOX (LOGIN) -->
 <div class="topright-screen">
-    <div class="mainFrame" style="min-width: 200px">
+    <div class="mainFrame" style="min-width: 200px" id="logged">
         <!-- SIGNUP AND LOGIN -->
         <div class="fancyText1">
             <?php
@@ -88,21 +88,8 @@ include 'assets/src/php/scoreboard.php';
 
         <form action="" method="POST">
 
-            <!-- Content when not logged in -->
-            <div id="login">
-                <!-- INPUT FIELD -->
-                <label>
-                    <input type="text" name="username" placeholder="Username" class="input" style="margin-bottom: 10px"><br>
-                    <input type="password" name="password" placeholder="Password" class="input" style="margin-bottom: 10px"><br>
-                </label>
-
-                <!-- SUBMIT BUTTON -->
-                <button type="submit" name="signup" class="button" style="width: 50%; float: left">Signup</button>
-                <button type="submit" name="login" class="button" style="width: 50%; float: right">Login</button>
-            </div>
-
             <!-- Content when logged in -->
-            <div id="logged" style="flex-direction: column">
+            <div style="flex-direction: column">
                 <!-- WELCOME MESSAGE -->
                 <h1 class="fancyText1" style="font-size: 24px">Welcome, <?= $_SESSION["username"] ?></h1>
 
@@ -118,6 +105,26 @@ include 'assets/src/php/scoreboard.php';
 
 <!-- CENTER BOX (GAME) -->
 <div class="center-screen">
+    <div class="mainFrame" id="login">
+
+        <form action="" method="POST">
+            <!-- Content when not logged in -->
+            <div id="login">
+                <!-- INPUT FIELD -->
+                <label>
+                    <input type="text" name="username" placeholder="Username" class="input" style="margin-bottom: 10px"><br>
+                    <input type="password" name="password" placeholder="Password" class="input"
+                           style="margin-bottom: 10px"><br>
+                </label>
+
+                <!-- SUBMIT BUTTON -->
+                <button type="submit" name="signup" class="button" style="width: 50%; float: left">Signup</button>
+                <button type="submit" name="login" class="button" style="width: 50%; float: right">Login</button>
+            </div>
+        </form>
+
+    </div>
+
     <div class="mainFrame" id="logged">
 
 
@@ -155,7 +162,7 @@ include 'assets/src/php/scoreboard.php';
 
 <!-- TOP LEFT BOX (SCOREBOARD) -->
 <div class="topleft-screen">
-    <div class="mainFrame">
+    <div class="mainFrame" id="logged">
 
         <!-- TITLE -->
         <h1 class="fancyText1" style="font-size: 34px">SCOREBOARD</h1>
@@ -171,7 +178,7 @@ include 'assets/src/php/scoreboard.php';
 </div>
 
 <!-- JAVASCRIPT -->
-<script src="assets/src/js/initGame.js" type="module"></script>
+<script src="src/js/initGame.js" type="module"></script>
 
 </body>
 
