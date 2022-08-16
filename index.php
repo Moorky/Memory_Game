@@ -46,40 +46,6 @@ include 'src/php/scoreboard.php';
             </div>
         </form>
 
-    </div>
-
-    <div class="mainFrame" id="logged">
-
-
-        <!-- PREGAME INPUT -->
-        <div class="popup">
-            <label>
-
-                <select id="mode">
-                    <option value="pvp">PvP</option>
-                    <option value="pvc">PvC</option>
-                </select>
-
-                <input type="text" id="cardCount" placeholder="Amount of cards" class="input">
-                <input type="text" id="copyCount" placeholder="Amount of copies" class="input">
-
-                <input type="text" id="player2" placeholder="Player two name" class="input">
-
-            </label>
-
-            <button class="play" id="play">Play</button>
-        </div>
-
-        <!-- CARD BOARD -->
-        <div class="grid">
-        </div>
-
-    </div>
-</div>
-
-<!-- TOP RIGHT BOX (LOGIN) -->
-<div class="topright-screen">
-    <div class="mainFrame" style="min-width: 200px" id="logged">
         <!-- SIGNUP AND LOGIN -->
         <div class="fancyText1">
             <?php
@@ -136,6 +102,41 @@ include 'src/php/scoreboard.php';
 
             ?>
         </div>
+
+    </div>
+
+    <div class="mainFrame" id="logged">
+
+
+        <!-- PREGAME INPUT -->
+        <div class="popup">
+            <label>
+
+                <select id="mode">
+                    <option value="pvp">PvP</option>
+                    <option value="pvc">PvC</option>
+                </select>
+
+                <input type="text" id="cardCount" placeholder="Amount of cards" class="input">
+                <input type="text" id="copyCount" placeholder="Amount of copies" class="input">
+
+                <input type="text" id="player2" placeholder="Player two name" class="input">
+
+            </label>
+
+            <button class="play" id="play">Play</button>
+        </div>
+
+        <!-- CARD BOARD -->
+        <div class="grid">
+        </div>
+
+    </div>
+</div>
+
+<!-- TOP RIGHT BOX (LOGIN) -->
+<div class="topright-screen">
+    <div class="mainFrame" style="min-width: 200px" id="logged">
 
         <form action="" method="POST">
 

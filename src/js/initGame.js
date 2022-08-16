@@ -39,11 +39,21 @@ function getData() {
     mode = document.getElementById("mode").value;
     player2 = document.getElementById("player2").value;
 
+    checkPlayerTwoEmpty();
     checkIfPvC();
 }
 
 /**
- * Sets Player2 name to "Carla" if game mode is player vs computer
+ * Sets Player2 name to "Player2" if name field is empty
+ */
+function checkPlayerTwoEmpty() {
+    if (player2 === "") {
+        player2 = "Player2";
+    }
+}
+
+/**
+ * Sets Player2 name to "Clara" if game mode is player vs computer
  */
 function checkIfPvC() {
     if (mode === "pvc") {

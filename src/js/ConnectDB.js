@@ -1,13 +1,18 @@
 class ConnectDB {
-    getData(str) {
+
+    /**
+     * Gets or sets data from the server, depending on the parameter given.
+     * Visit dataHandler.php for more information.
+     *
+     * @param str
+     * @returns {string}
+     */
+    dataHandler(str) {
+        console.log(str);
         let ajax = new XMLHttpRequest();
-        ajax.open("GET", "src/php/getData.php?q=" + str, false);
+        ajax.open("GET", "src/php/dataHandler.php?q=" + str, false);
         ajax.send();
         return ajax.responseText;
-    }
-
-    sendData() {
-
     }
 }
 

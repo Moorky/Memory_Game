@@ -54,7 +54,7 @@ function signup()
     if (empty($username_err) && empty($password_err)) {
 
         // Prepare an insert statement
-        $sql = "INSERT INTO UserData (Username, Password) VALUES (?, ?)";
+        $sql = "INSERT INTO UserData (Username, Password, Score) VALUES (?, ?, 0)";
 
         if ($stmt = mysqli_prepare($_SESSION['conn'], $sql)) {
             // Bind variables to the prepared statement as parameters

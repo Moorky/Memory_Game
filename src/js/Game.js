@@ -53,7 +53,7 @@ class Game {
      * @returns {string} username
      */
     getUserName() {
-        return this.database.getData("username");
+        return this.database.dataHandler("username");
     }
 
     /**
@@ -206,7 +206,24 @@ class Game {
         if (this.cardsWon === this.board.getBoardCards().length / this.board.getCopyCount()) {
             setTimeout(() => this.popup.style.display = "flex", 300);
             this.disableCard();
+            this.checkNewHighscore();
             delete this;
+        }
+    }
+
+    /**
+     * Checks if a player (not computer) has beaten the highscore of the logged-in user.
+     * Sends a request to change the highscore to the new score to the server.
+     */
+    checkNewHighscore() {
+        let highscore = this.database.dataHandler("highscore");
+
+        if (this.player.getPlayerScore(0) > parseInt(highscore) || this.player.getPlayerScore(1) > parseInt(highscore)) {
+            if (this.mode === "pvp" && this.player.getPlayerScore(1) > this.player.getPlayerScore(0)) {
+                this.database.dataHandler("score:" + this.player.getPlayerScore(1));
+            } else if (this.player.getPlayerScore(0) > parseInt(highscore)) {
+                this.database.dataHandler("score:" + this.player.getPlayerScore(0));
+            }
         }
     }
 
