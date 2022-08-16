@@ -47,6 +47,6 @@ function getData() {
  */
 function checkIfPvC() {
     if (mode === "pvc") {
-        player2 = "Carla";
+        player2 = "Clara";
     }
 }

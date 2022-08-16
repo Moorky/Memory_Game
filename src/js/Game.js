@@ -139,7 +139,6 @@ class Game {
         if (e.composedPath()[3].classList.contains("flip-card-rotate")) {
             return;
         }
-        console.log(e);
         let selected = e.composedPath()[0].dataset.id;
         this.cardsSelected.push(this.board.getBoardCards()[selected].getID());
         this.cardsID.push(selected);

@@ -4,7 +4,6 @@ include 'src/php/connectDB.php';
 include 'src/php/signup.php';
 include 'src/php/login.php';
 include 'src/php/scoreboard.php';
-include 'src/php/getData.php';
 ?>
 
 <!DOCTYPE html>
