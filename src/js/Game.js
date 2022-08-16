@@ -25,17 +25,19 @@ class Game {
         this.grid = document.querySelector(".grid")
         this.popup = document.querySelector(".popup");
         this.scoreBoard = [document.querySelector(".scoreBoard_1"), document.querySelector(".scoreBoard_2")];
+        this.scoreBoardTurn = document.querySelector(".scoreBoard_turn");
         this.cardsID = [];
         this.cardsSelected = [];
         this.cardsWon = 0;
         this.turn = 0;
         this.mode = mode;
 
-        // CLEAN UP
+        // PREPARATION
         this.grid.innerHTML = "";
         this.scoreBoard.forEach((e, i) => {
             e.innerHTML = this.player.getPlayerName(i) + " " + (this.player.getPlayerScore(i)).toString()
         })
+        this.scoreBoardTurn.innerHTML = "It's " + this.player.getPlayerName(this.turn) + "'s turn!";
 
         // GAME LOGIC
         this.startGame();
@@ -202,9 +204,14 @@ class Game {
 
     /**
      * Switches turn value between 0 and 1 everytime the method is called.
+     * Also shows on the Scoreboard, which players turn it is.
      */
     switchTurn() {
         this.turn = this.turn === 0 ? 1 : 0;
+
+        this.scoreBoardTurn.innerHTML = "It's " + this.player.getPlayerName(this.turn) + "'s turn!";
+        this.scoreBoardTurn.classList.remove(this.turn === 0 ? "fancyText3" : "fancyText2");
+        this.scoreBoardTurn.classList.add(this.turn === 0 ? "fancyText2" : "fancyText3");
     }
 
     /**

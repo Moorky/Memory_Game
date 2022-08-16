@@ -177,9 +177,10 @@ include 'src/php/scoreboard.php';
 
         <!-- DATA -->
         <div class="data">
-            <div class="fancyText2" style="float:left"><span class="scoreBoard_1"></span></div>
-            <div class="fancyText3" style="float:right"><span class="scoreBoard_2"></span></div>
+            <div class="fancyText2" style="margin-right: 1em"><span class="scoreBoard_1"></span></div>
+            <div class="fancyText3"><span class="scoreBoard_2"></span></div>
         </div>
+        <div class="fancyText2"><span class="scoreBoard_turn"></span></div>
 
     </div>
 </div>
