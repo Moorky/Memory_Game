@@ -1,9 +1,11 @@
 <?php
+require_once 'src/php/connectDB.php';
 
 function getScoresFromDB () {
     // Get Userdata
+    $conn = connectDB();
     $sql = "SELECT Username, Score FROM UserData WHERE Score IS NOT NULL ORDER BY Score DESC";
-    $result = $_SESSION['conn']->query($sql);
+    $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         // output data of each row
@@ -13,5 +15,5 @@ function getScoresFromDB () {
     } else {
         echo "No entries.";
     }
-    $_SESSION['conn']->close();
+    $conn->close();
 }

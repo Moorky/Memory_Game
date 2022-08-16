@@ -216,12 +216,12 @@ class Game {
      * Sends a request to change the highscore to the new score to the server.
      */
     checkNewHighscore() {
-        let highscore = this.database.dataHandler("highscore");
+        let highscore = parseInt(this.database.dataHandler("highscore"));
 
-        if (this.player.getPlayerScore(0) > parseInt(highscore) || this.player.getPlayerScore(1) > parseInt(highscore)) {
+        if (isNaN(highscore) || this.player.getPlayerScore(0) > highscore || this.player.getPlayerScore(1) > highscore) {
             if (this.mode === "pvp" && this.player.getPlayerScore(1) > this.player.getPlayerScore(0)) {
                 this.database.dataHandler("score:" + this.player.getPlayerScore(1));
-            } else if (this.player.getPlayerScore(0) > parseInt(highscore)) {
+            } else if (isNaN(highscore) || this.player.getPlayerScore(0) > highscore) {
                 this.database.dataHandler("score:" + this.player.getPlayerScore(0));
             }
         }

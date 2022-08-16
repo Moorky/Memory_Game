@@ -1,10 +1,12 @@
 <?php
+require_once 'src/php/connectDB.php';
 
 function signup()
 {
     // Define variables and initialize with empty values
     $username = $password = "";
     $username_err = $password_err = "";
+    $conn = connectDB();
 
     // Validate username
     if (empty(trim($_POST["username"]))) {
@@ -15,7 +17,7 @@ function signup()
         // Prepare a select statement
         $sql = "SELECT ID FROM UserData WHERE username = ?";
 
-        if ($stmt = mysqli_prepare($_SESSION['conn'], $sql)) {
+        if ($stmt = mysqli_prepare($conn, $sql)) {
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_username);
 
@@ -54,9 +56,9 @@ function signup()
     if (empty($username_err) && empty($password_err)) {
 
         // Prepare an insert statement
-        $sql = "INSERT INTO UserData (Username, Password, Score) VALUES (?, ?, 0)";
+        $sql = "INSERT INTO UserData (Username, Password) VALUES (?, ?)";
 
-        if ($stmt = mysqli_prepare($_SESSION['conn'], $sql)) {
+        if ($stmt = mysqli_prepare($conn, $sql)) {
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
 

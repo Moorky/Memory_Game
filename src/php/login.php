@@ -1,10 +1,12 @@
 <?php
+require_once 'src/php/connectDB.php';
 
 function login()
 {
     // Define variables and initialize with empty values
     $username = $password = "";
     $username_err = $password_err = $login_err = "";
+    $conn = connectDB();
 
     // Check if username is empty
     if (empty(trim($_POST["username"]))) {
@@ -25,7 +27,7 @@ function login()
         // Prepare a select statement
         $sql = "SELECT score, username, password FROM UserData WHERE username = ?";
 
-        if ($stmt = mysqli_prepare($_SESSION['conn'], $sql)) {
+        if ($stmt = mysqli_prepare($conn, $sql)) {
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_username);
 

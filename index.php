@@ -17,11 +17,6 @@ include 'src/php/scoreboard.php';
     <link rel="stylesheet" href="src/css/style.css">
 
     <title>Memory</title>
-
-    <?php
-    // Connect to Database
-    connectDB();
-    ?>
 </head>
 
 <body>

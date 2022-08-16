@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'src/php/connectDB.php';
 
 // get the q parameter from URL
 $q = $_REQUEST["q"];
@@ -16,13 +17,16 @@ switch ($q) {
         break;
 
     default:
+        // Create connection to database
+        $conn = connectDB();
+
         // save highscore in database if the query contains "score="
-        if (strpos($q, "score:")) {
+        if (strpos($q, "score:") !== false) {
 
             $_SESSION["highscore"] = explode(':', $q)[1];
-            $sql = "UPDATE UserData SET score = ? WHERE username = ?";
+            $sql = "UPDATE UserData SET Score = ? WHERE Username = ?";
 
-            if ($stmt = mysqli_prepare($_SESSION['conn'], $sql)) {
+            if ($stmt = mysqli_prepare($conn, $sql)) {
                 // Bind variables to the prepared statement as parameters
                 mysqli_stmt_bind_param($stmt, "ss", $_SESSION["highscore"], $_SESSION["username"]);
 
