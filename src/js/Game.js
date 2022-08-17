@@ -23,7 +23,7 @@ class Game {
         this.database = new ConnectDB();
         this.board = new Board(cardCount, copyCount);
         this.player = new Player(this.getUserName(), player2);
-        this.ai = new AI(this);
+        this.ai = null;
 
         this.grid = document.querySelector(".grid")
         this.popup = document.querySelector(".popup");
@@ -62,6 +62,7 @@ class Game {
     startGame() {
         this.createBoard(this.grid, this.board.getBoardCards());
         this.enableCard();
+        this.ai = new AI(this);
     }
 
     /**
@@ -147,6 +148,7 @@ class Game {
 
         if (this.cardsID.length === this.board.getCopyCount()) {
             this.disableCard();
+            this.ai.getDataFromPlayersTurn(this.cardsID);
             setTimeout(this.checkForMatch.bind(this), 1000);
         }
     }

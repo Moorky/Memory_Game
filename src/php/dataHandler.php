@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'src/php/connectDB.php';
+require_once 'connectDB.php';
 
 // get the q parameter from URL
 $q = $_REQUEST["q"];

@@ -98,6 +98,13 @@ class Board {
     }
 
     /**
+     * @returns {Number} cardCount. How many unique cards exist.
+     */
+    getCardCount() {
+        return this.cardCount;
+    }
+
+    /**
      * @returns {Array} Array of Cards.
      */
     getBoardCards() {
