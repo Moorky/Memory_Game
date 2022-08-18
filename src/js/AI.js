@@ -18,6 +18,7 @@ class AI {
         this.smartCards = [];
         this.selectedCards = [];
         this.flipCounter = 0;
+        this.foundMatch = false;
 
         // Creates own array of cards similar to the board cards, just with more functionality
         this.createSmartCards();
@@ -198,7 +199,11 @@ class AI {
             }
         }
         if (this.flipCounter === this.game.board.getCopyCount()) {
-            smartCardMatch.forEach((e) => { e.setMatched() });
+            smartCardMatch.forEach((e) => {
+                e.setMatched()
+            });
+            this.foundMatch = true;
+            this.game.cardsWon++;
         }
     }
 
@@ -216,32 +221,93 @@ class AI {
 
     /**
      * This method consists of all steps the AI has to make to process its turn.
+     * You can refer to this method to have an overview of what the AI is doing.
      */
-    makeTurn() {
+    async makeTurn() {
         this.calculateCardChoice();
         console.log(this.getSmartCardMatchValuesSum());
-        // TODO actually flip them (frontend)
+        await this.flipCards();
         this.decrementSmartCardValues();
-        this.clearSelection();
+        await this.clearSelection();
         this.preparePlayerTurn();
+        this.repeatTurnOnMatchFound();
     }
 
     /**
-     * Clears some class variables for the next turn.
+     * Repeats its turn if it has found a match.
      */
-    clearSelection() {
-        this.flipCounter = 0;
-        this.selectedCards = [];
+    repeatTurnOnMatchFound() {
+        if (this.foundMatch) {
+            this.makeTurn().then(r => r);
+        }
     }
 
     /**
-     * Calls some method from the game instance to prepare the turn for the opponent.
+     * Flips selected cards by creating a html element, setting attributes and calling the flip animation via css.
+     */
+    async flipCards() {
+        for (const e of this.selectedCards) {
+            await sleep(1000);
+
+            let card = document.createElement("img");
+
+            card.setAttribute("src", e.getBoardCard().getImg());
+            card.setAttribute("draggable", "false");
+            card.setAttribute("data-id", e.getHtmlCardID());
+            card.classList.add("playerTwoCardBorder");
+
+            e.getHtmlCard().classList.add("flip-card-rotate");
+            e.getHtmlCard().firstChild.lastChild.appendChild(card);
+        }
+    }
+
+    /**
+     * Clears some class variables and un-flips cards for the next turn if no match has been found.
+     * If a match has been found, increase score value.
+     */
+    async clearSelection() {
+        await sleep(1000);
+
+        if (this.flipCounter !== this.game.board.getCopyCount()) {
+            let cards = document.querySelectorAll(".flip-card");
+            for (let i = 0; i < this.selectedCards.length; i++) {
+                cards[this.selectedCards[i].getHtmlCardID()].classList.remove("flip-card-rotate");
+                cards[this.selectedCards[i].getHtmlCardID()].querySelectorAll("img")[1].remove();
+            }
+            this.foundMatch = false;
+        } else {
+            this.game.player.increaseScore(this.game.scoreBoard, 1, this.game.board.getCopyCount());
+        }
+
+        this.selectedCards = [];
+        this.flipCounter = 0;
+    }
+
+    /**
+     * Calls some method from the game instance to prepare the turn for the opponent if the AI has found no match in its turn.
      */
     preparePlayerTurn() {
-        this.game.unselectSelectedCards();
-        this.game.enableCard();
-        this.game.switchTurn();
+        if (!this.foundMatch) {
+            this.game.unselectSelectedCards();
+            this.game.enableCard();
+            this.game.switchTurn();
+        } else {
+            this.game.checkWon();
+        }
     }
+}
+
+
+/**
+ * Simple sleep function.
+ *
+ * @param milliseconds is time to wait.
+ * @returns {Promise<unknown>}
+ */
+function sleep(milliseconds) {
+    return new Promise(resolve => {
+        setTimeout(resolve, milliseconds);
+    });
 }
 
 export default AI;

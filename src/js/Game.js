@@ -184,7 +184,7 @@ class Game {
         }
 
         if (matchCount === this.cardsID.length - 1) {
-            this.cardsWon += 1;
+            this.cardsWon++;
             this.player.increaseScore(this.scoreBoard, this.turn, this.board.getCopyCount());
             setTimeout(this.checkWon.bind(this), 500)
         } else {
@@ -197,7 +197,7 @@ class Game {
         if (!(this.mode === "pvc" && this.turn === 1)) {
             this.enableCard();
         } else {
-            this.ai.makeTurn();
+            this.ai.makeTurn().then(r => r);
         }
     }
 
@@ -257,7 +257,7 @@ class Game {
         let cards = document.querySelectorAll(".flip-card");
         for (let i = 0; i < this.cardsID.length; i++) {
             cards[this.cardsID[i]].classList.remove("flip-card-rotate");
-            cards[this.cardsID[i]].firstChild.lastChild.firstChild.remove();
+            cards[this.cardsID[i]].querySelectorAll("img")[1].remove();
         }
     }
 }

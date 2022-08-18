@@ -27,7 +27,9 @@ window.onload = function () {
  */
 function checkInput() {
     return !((isNaN(Number(cardCount)) || cardCount.length === 0) ||
-            (isNaN(Number(copyCount)) || copyCount.length === 0));
+            (isNaN(Number(copyCount)) || copyCount.length === 0) ||
+            (Number(copyCount) < 2 || Number(cardCount) < 2) ||
+            !/^[a-zA-Z0-9]+$/.test(player2));
 }
 
 /**

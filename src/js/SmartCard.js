@@ -65,7 +65,7 @@ class SmartCard {
      * @returns {string} the ID the card has which is usually saved in the html element of the card.
      */
     getHtmlCardID() {
-        return this.htmlCard.dataset.id;
+        return this.htmlCard.querySelector("img").dataset.id;
     }
 
     /**
