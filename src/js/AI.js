@@ -57,18 +57,22 @@ class AI {
      * Checks if the opponent has found a match with their selection and saves that information.
      *
      * @param cardsID is an array of the IDs of the selected cards.
+     * @return {boolean}
      */
     checkMatchFound(cardsID) {
         let matchCounter = 0;
+        let matchFound = false;
         cardsID.forEach((e) => {
             if (this.getSmartCardByID(e).getBoardCardID() === this.getSmartCardByID(cardsID[0]).getBoardCardID()) {
                 if (++matchCounter === this.game.board.getCopyCount()) {
                     cardsID.forEach((e) => {
                         this.getSmartCardByID(e).setMatched();
                     });
+                    matchFound = true;
                 }
             }
         });
+        return matchFound;
     }
 
     /**
@@ -159,6 +163,22 @@ class AI {
     calculateCardChoice() {
         this.checkMatchChoice();
         this.checkUnknownCardChoice();
+        this.checkSelectionForMatch();
+    }
+
+    /**
+     * Gets the html card index/ID of each selected card and checks via checkMatchFound if all cards have the same Card instance ID.
+     */
+    checkSelectionForMatch() {
+        let cardsID = [];
+        this.selectedCards.forEach((e) => {
+            cardsID.push(e.getHtmlCardID());
+        })
+        console.log(cardsID)
+        if (this.checkMatchFound(cardsID)) {
+            this.foundMatch = true;
+            this.game.cardsWon++;
+        }
     }
 
     /**
@@ -199,11 +219,6 @@ class AI {
             }
         }
         if (this.flipCounter === this.game.board.getCopyCount()) {
-            smartCardMatch.forEach((e) => {
-                e.setMatched()
-            });
-            this.foundMatch = true;
-            this.game.cardsWon++;
         }
     }
 
