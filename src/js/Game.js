@@ -120,7 +120,7 @@ class Game {
      */
     enableCard() {
         this.grid.addEventListener("click", this.gameEventPointer = (e) => {
-            this.flipCard(e)
+            this.flipCard(e);
         });
     }
 
@@ -192,8 +192,14 @@ class Game {
             this.unselectSelectedCards();
         }
 
+        this.prepareNextTurn();
         this.clearSelection();
+    }
 
+    /**
+     * Enables clickable cards for next turn or activates AI, depending on which turn and game mode it is.
+     */
+    prepareNextTurn() {
         if (!(this.mode === "pvc" && this.turn === 1)) {
             this.enableCard();
         } else {

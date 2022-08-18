@@ -174,7 +174,6 @@ class AI {
         this.selectedCards.forEach((e) => {
             cardsID.push(e.getHtmlCardID());
         })
-        console.log(cardsID)
         if (this.checkMatchFound(cardsID)) {
             this.foundMatch = true;
             this.game.cardsWon++;
@@ -217,8 +216,6 @@ class AI {
                 this.selectedCards.push(smartCardMatch[i]);
                 this.flipCounter++;
             }
-        }
-        if (this.flipCounter === this.game.board.getCopyCount()) {
         }
     }
 
@@ -311,7 +308,6 @@ class AI {
         }
     }
 }
-
 
 /**
  * Simple sleep function.

@@ -15,7 +15,7 @@ class SmartCard {
     constructor(boardCard, htmlCard) {
         this.boardCard = boardCard;
         this.htmlCard = htmlCard;
-        this.cardValue = 0;
+        this.cardValue = 1;
         this.matched = false;
     }
 
