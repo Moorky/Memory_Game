@@ -96,7 +96,7 @@ class Game {
         frontDiv.classList.add("flip-card-front");
         backDiv.classList.add("flip-card-back");
 
-        card.setAttribute("src", "assets/img/background.jpg");
+        card.setAttribute("src", "assets/img/cardback.webp");
         card.setAttribute("draggable", "false");
         card.setAttribute("data-id", index.toString());
 

@@ -25,7 +25,7 @@ include 'src/php/scoreboard.php';
 <div class="center-screen">
     <div class="mainFrame" id="login">
 
-        <form action="" method="POST">
+        <form action="" method="POST" autocomplete="off">
             <!-- Content when not logged in -->
             <div id="login">
                 <!-- INPUT FIELD -->
@@ -105,19 +105,21 @@ include 'src/php/scoreboard.php';
 
         <!-- PREGAME INPUT -->
         <div class="popup">
-            <label>
+            <form autocomplete="off">
+                <label>
 
-                <select id="mode">
-                    <option value="pvp">PvP</option>
-                    <option value="pvc">PvC</option>
-                </select>
+                    <select id="mode">
+                        <option value="pvp">PvP</option>
+                        <option value="pvc">PvC</option>
+                    </select>
 
-                <input type="text" id="cardCount" placeholder="Amount of cards" class="input">
-                <input type="text" id="copyCount" placeholder="Amount of copies" class="input">
+                    <input type="text" id="cardCount" placeholder="Amount of cards" class="input">
+                    <input type="text" id="copyCount" placeholder="Amount of copies" class="input">
 
-                <input type="text" id="player2" placeholder="Player two name" class="input">
+                    <input type="text" id="player2" placeholder="Player two name" class="input">
 
-            </label>
+                </label>
+            </form>
 
             <button class="play" id="play">Play</button>
         </div>

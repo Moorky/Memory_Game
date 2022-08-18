@@ -60,6 +60,12 @@ h1 {
     ;
 }
 
+.playerOneCardBorder, .playerTwoCardBorder {
+    border-style: solid;
+    border-width: 4px;
+    border-radius: 3px;
+}
+
 .playerOneCardBorder {
     border-color: rgb(7, 253, 241);
 }
@@ -135,9 +141,6 @@ h1 {
 .grid img {
     width: 100px;
     height: 150px;
-    border-style: solid;
-    border-width: 4px;
-    border-radius: 3px;
 }
 
 .flip-card {
