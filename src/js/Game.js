@@ -205,7 +205,7 @@ class Game {
      * Checks if game is won by comparing the cards won to the amount of total cards divided by copy count.
      */
     checkWon() {
-        if (this.cardsWon === this.board.getBoardCards().length / this.board.getCopyCount()) {
+        if (this.cardsWon === this.board.getCardCount()) {
             setTimeout(() => this.popup.style.display = "flex", 300);
             this.disableCard();
             this.checkNewHighscore();

@@ -59,12 +59,12 @@ class AI {
      * @param cardsID is an array of the IDs of the selected cards.
      */
     checkMatchFound(cardsID) {
-        let matchCounter;
+        let matchCounter = 0;
         cardsID.forEach((e) => {
             if (this.getSmartCardByID(e).getBoardCardID() === this.getSmartCardByID(cardsID[0]).getBoardCardID()) {
                 if (++matchCounter === this.game.board.getCopyCount()) {
                     cardsID.forEach((e) => {
-                        this.getSmartCardByID(e).setMatched()
+                        this.getSmartCardByID(e).setMatched();
                     });
                 }
             }
@@ -234,10 +234,10 @@ class AI {
     }
 
     /**
-     * Repeats its turn if it has found a match.
+     * Repeats its turn if it has found a match and if the game hasn't ended yet.
      */
     repeatTurnOnMatchFound() {
-        if (this.foundMatch) {
+        if (this.foundMatch && this.game.cardsWon < this.game.board.getCardCount()) {
             this.makeTurn().then(r => r);
         }
     }

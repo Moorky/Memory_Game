@@ -68,12 +68,6 @@ h1 {
     border-color: rgb(218, 34, 246);
 }
 
-.playerOneCardBorder, .playerTwoCardBorder {
-    border-style: solid;
-    border-width: 4px;
-    border-radius: 3px;
-}
-
 .fancyText1, .fancyText2, .fancyText3 {
     font-family: "Dank Mono", ui-monospace, monospace;
     background-clip: border-box;
@@ -141,6 +135,9 @@ h1 {
 .grid img {
     width: 100px;
     height: 150px;
+    border-style: solid;
+    border-width: 4px;
+    border-radius: 3px;
 }
 
 .flip-card {
