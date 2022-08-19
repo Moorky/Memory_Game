@@ -8,7 +8,7 @@ class ConnectDB {
      * @returns {string}
      */
     dataHandler(str) {
-        let ajax = new XMLHttpRequest();
+        const ajax = new XMLHttpRequest();
         ajax.open("GET", "src/php/dataHandler.php?q=" + str, false);
         ajax.send();
         return ajax.responseText;

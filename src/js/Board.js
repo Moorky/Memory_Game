@@ -70,7 +70,7 @@ class Board {
     }
 
     /**
-     * Uses an algorithm to define the x value of the 2D board.
+     * Uses an algorithm to define the x-axis of the 2D board.
      *
      * @returns {int} x dimension
      */

@@ -1,6 +1,7 @@
 <?php
 require_once 'src/php/connectDB.php';
 
+
 function signup()
 {
     // Define variables and initialize with empty values
@@ -11,8 +12,10 @@ function signup()
     // Validate username
     if (empty(trim($_POST["username"]))) {
         $username_err = "Please enter a username.";
+
     } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
         $username_err = "Username can only contain letters, numbers, and underscores.";
+
     } else {
         // Prepare a select statement
         $sql = "SELECT ID FROM UserData WHERE username = ?";

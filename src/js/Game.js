@@ -31,6 +31,7 @@ class Game {
         this.scoreBoardTurn = document.querySelector(".scoreBoard_turn");
 
         this.cardsID = [];
+        this.matchedCardsID = [];
         this.cardsSelected = [];
         this.cardsWon = 0;
         this.turn = 0;
@@ -184,6 +185,7 @@ class Game {
         }
 
         if (matchCount === this.cardsID.length - 1) {
+            this.checkCheating(this.cardsID);
             this.cardsWon++;
             this.player.increaseScore(this.scoreBoard, this.turn, this.board.getCopyCount());
             setTimeout(this.checkWon.bind(this), 500)
@@ -217,6 +219,7 @@ class Game {
             this.checkNewHighscore();
             delete this;
         }
+
     }
 
     /**
@@ -229,6 +232,7 @@ class Game {
         if (isNaN(highscore) || this.player.getPlayerScore(0) > highscore || this.player.getPlayerScore(1) > highscore) {
             if (this.mode === "pvp" && this.player.getPlayerScore(1) > this.player.getPlayerScore(0)) {
                 this.database.dataHandler("score:" + this.player.getPlayerScore(1));
+
             } else if (isNaN(highscore) || this.player.getPlayerScore(0) > highscore) {
                 this.database.dataHandler("score:" + this.player.getPlayerScore(0));
             }
@@ -265,6 +269,25 @@ class Game {
             cards[this.cardsID[i]].classList.remove("flip-card-rotate");
             cards[this.cardsID[i]].querySelectorAll("img")[1].remove();
         }
+    }
+
+    /**
+     * Checks if the player is trying to cheat, by analyzing the IDs of the selected cards and comparing them
+     * to already matched card IDs. Only use this method if the player has found a match!
+     *
+     * @param cardsID is an array of the cards IDs.
+     */
+    checkCheating(cardsID) {
+        const cheating = cardsID.some(r => this.matchedCardsID.includes(r));
+
+        if (cheating) {
+            alert("Error: found cards with ID duplicates, game will shut down!");
+            delete this;
+        }
+
+        cardsID.forEach((e) => {
+            this.matchedCardsID.push(e);
+        })
     }
 }
 

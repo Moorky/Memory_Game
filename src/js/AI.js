@@ -62,6 +62,7 @@ class AI {
     checkMatchFound(cardsID) {
         let matchCounter = 0;
         let matchFound = false;
+
         cardsID.forEach((e) => {
             if (this.getSmartCardByID(e).getBoardCardID() === this.getSmartCardByID(cardsID[0]).getBoardCardID()) {
                 if (++matchCounter === this.game.board.getCopyCount()) {
@@ -72,6 +73,7 @@ class AI {
                 }
             }
         });
+
         return matchFound;
     }
 
@@ -94,6 +96,7 @@ class AI {
         for (let i = 0; i < this.game.board.getCardCount(); i++) {
             let valSum = 0;
             let match = this.getSmartCardMatchByIndex(i);
+
             for (let l = 0; l < match.length; l++) {
                 valSum += match[l].getCardValue();
                 if (match[l].getCardValue() === 0) {
@@ -103,6 +106,7 @@ class AI {
             }
             valArray.push(valSum);
         }
+
         return valArray;
     }
 
@@ -126,7 +130,8 @@ class AI {
      * Finds a match with the highest sum of Card values (this mimics "confidently" remembering where a card match is)
      *
      * @param valArray array of the sum of Card values of each match
-     * @returns {boolean|*} false if it has not seen/does not remember a full set of cards that are matching, else returns the shared ID of the cards that build a match
+     * @returns {boolean|*} false if it has not seen/does not remember a full set of cards that are matching, else
+     * returns the shared ID of the cards that build a match
      */
     findMostKnownMatchIndex(valArray) {
         let highestVal = 0;
@@ -175,6 +180,7 @@ class AI {
             cardsID.push(e.getHtmlCardID());
         })
         if (this.checkMatchFound(cardsID)) {
+            this.game.checkCheating(cardsID);
             this.foundMatch = true;
             this.flipCounter = cardsID.length;
             this.game.cardsWon++;
