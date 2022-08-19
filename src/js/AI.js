@@ -176,6 +176,7 @@ class AI {
         })
         if (this.checkMatchFound(cardsID)) {
             this.foundMatch = true;
+            this.flipCounter = cardsID.length;
             this.game.cardsWon++;
         }
     }
