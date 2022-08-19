@@ -33,7 +33,7 @@ class Player {
      * @param copiesCount the amount of copies of each unique card on the board
      */
     increaseScore(htmlElement, turn, copiesCount) {
-        this.score[turn] += 0.5 * copiesCount;
+        this.score[turn] += copiesCount * 5;
         htmlElement[turn].innerHTML = this.playerNames[turn] + " " + (this.score[turn]).toString();
     }
 

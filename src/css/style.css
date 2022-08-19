@@ -176,7 +176,6 @@ h1 {
 }
 
 .popup {
-    background: #07365e;
     width: 200px;
     height: 200px;
     z-index: 20;
@@ -194,6 +193,5 @@ h1 {
 }
 
 .data span {
-    color: rgb(206, 121, 11);
     font-size: 30px;
 }
