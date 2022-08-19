@@ -217,7 +217,6 @@ class Game {
             setTimeout(() => this.popup.style.display = "flex", 300);
             this.disableCard();
             this.checkNewHighscore();
-            delete this;
         }
 
     }
@@ -281,8 +280,8 @@ class Game {
         const cheating = cardsID.some(r => this.matchedCardsID.includes(r));
 
         if (cheating) {
-            alert("Error: found cards with ID duplicates, game will shut down!");
-            delete this;
+            alert("Error: found cards with ID duplicates, page will now reload!");
+            document.location.reload();
         }
 
         cardsID.forEach((e) => {
